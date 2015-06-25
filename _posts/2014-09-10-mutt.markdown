@@ -1,0 +1,128 @@
+---
+layout: post
+title: "linux - why i use mutt and why you should too"
+date: 2014-09-10 01:02:03
+---
+
+![Mutt](/img/mutt.png)
+
+Mutt. A modern e-mail client entirely based within the terminal and CLI. Mutt's slogal is: _"All mail clients suck. This one just sucks less"_. But why Mutt? With it's VIM-like controls and rediculously fast transitions to reading email makes a minimalists and Linux fanatic's life a dream. 
+
+Anything you can do in GMail can be done in Mutt (with just a little bit of configuration). It's one of the few clients to fully support  MIME and GPG/PGP, integrating itself with Linux's already buit-in private / public key storage.
+
+What makes Mutt stand out is the fact that it's massively customizable and includes hundreds of configuration directives and commands. Being able to make custom keyboard macros for complex actions as well as the colours and other aspects of the interface. Although Mutt does not have a scripting language, it hasvery configurable Macros.
+
+Another benefit is the fact that Mutt is entirely compatible with PGP/GPG, enabling you to easily implement encryption, signing and decryption seamlessly when sending e-mails.
+
+#My configuration
+
+```bash
+#General --------------------------
+set realname = 'Charlie Drage'
+set from = 'charlie@charliedrage.com'
+set imap_user = 'charlie@charliedrage.com'
+set imap_pass = 'password'
+set folder = 'imaps://imap.gmail.com:993'
+set spoolfile = '+INBOX'
+set postponed = '+[Gmail]/Drafts'
+set trash = 'imaps://imap.gmail.com/[Gmail]/Trash'
+set header_cache = '~/.mutt/cache/headers'
+set message_cachedir = '~/.mutt/cache/bodies'
+set certificate_file = '~/.mutt/certificates'
+set smtp_url = 'smtp://charlie@charliedrage.com@smtp.gmail.com:587/'
+set smtp_pass = 'password'
+set move = no
+set markers = no
+set imap_check_subscribed
+bind editor <space> noop
+set wait_key = no
+set delete  
+unset confirmappend     
+set timeout=15
+set mail_check=60
+set imap_passive = no
+set check_new=yes
+set imap_keepalive = 900
+set header_cache=~/.hcache
+
+# Normal stuff ----------
+auto_view text/html
+set editor="vim +startinsert +':set textwidth=0'"
+set fast_reply = yes
+set abort_nosubject = no
+set abort_unmodified = ask-yes
+set reply_self = no         # Reply to recipients, not to myself on my own msgs
+set indent_string = "> "
+set include = yes
+set bounce_delivered = yes
+set forward_format = "Fwd: [ %s ]"
+set forward_quote = yes
+set metoo=yes
+
+# Status Bar -----------------------------------------
+set status_chars  = " *%A"
+set status_format = "───[ Folder: %f ]───[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]───%>─%?p?( %p postponed )?───"
+unset mark_old
+
+# Index View Options ---------------------------------
+folder-hook .               set sort=threads
+folder-hook =MuttMail/sent  set sort=date-sent
+set sort_aux = reverse-date-sent
+set strict_threads = no
+set wrap_search = yes
+set mark_old = no           # Do not mark unread new messages as 'old'
+set collapse_unread = no    # Do not let me collapse threads with unread msgs
+set uncollapse_jump = yes   # When uncollapsing, jump to new msgs
+
+# keyboard bindings
+bind index <tab>    sync-mailbox
+bind index <space>  collapse-thread
+
+macro index <esc>m "T~N<enter>;WNT~O<enter>;WO\CT~T<enter>" "mark all messages read"
+macro index gi '<change-folder>=INBOX<enter>' 'Go to Inbox'
+macro index ga '<change-folder>=[Gmail]/All Mail<enter>' 'Go to All Mail'
+macro index gs '<change-folder>=[Gmail]/Sent Mail<enter>' 'Go to Sent Mail'
+macro index gd '<change-folder>=[Gmail]/Drafts<enter>' 'Go to Drafts'
+macro index gx '<change-folder>=[Gmail]/Spam<enter>' 'Go to Spam'
+macro index gd '<change-folder>=[Gmail]/Trash<enter>' 'Go to Trash'
+
+macro index,pager y "<enter-command>unset trash\n <delete-thread>" "Gmail archive message"
+macro index,pager d "<enter-command>set trash=\"imaps://imap.googlemail.com/[Gmail]/Trash\"\n <delete-thread>" "Gmail delete message"
+
+# sidebar settings
+set sidebar_visible = no
+macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
+macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
+
+# Contacts (google goobook)
+set query_command="goobook query '%s'"
+macro index,pager a "<pipe-message>goobook add<return>" "add sender to google contacts"
+bind editor <Tab> complete-query
+
+macro index <esc>m "T~N<enter>;WNT~O<enter>;WO\CT~T<enter>" "mark all messages read"
+
+```
+
+#Security configuration
+
+First, you have to generate your GPG key within your Linux OS.
+
+```bash
+gpg --gen-key
+```
+
+Then add to Mutt
+
+```bash
+set pgp_good_sign="^gpg: Good signature from"
+set crypt_autosign="yes"
+set crypt_replysign="yes"
+set crypt_replysignencrypted="yes"
+set pgp_auto_decode="yes"
+unset smime_is_default
+```
+The biggest benefit with Mutt is the fact that you can easily encrypt, decrypt and sign any messages that come in and out. When an encrypted message comes in, Mutt automatically checks to see if you havet the appropriate Private Key to decrypt it, and does it seamlesslly. When a signed message comes in and you do not have a public key to compare to, it notifies you that the comparison isn't valid.
+
+#Conclusion
+
+If you're not using Mutt, just try it out, you may even like it. It's extensible [documentation](http://www.mutt.org/doc/manual/) allows and endless amount of configuration changes. The fact that it's lightweight and it's terminal-like quality allows it to be ran on any Linux machine. 

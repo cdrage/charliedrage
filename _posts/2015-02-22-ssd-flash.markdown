@@ -1,0 +1,65 @@
+---
+layout: post
+title: "the power of hdd's and ssd-cache"
+date: 2015-02-22 01:02:03
+---
+
+SSD-Cache. Whether you're using a new laptop or accessing Facebook, in some way or another, SSD-cache is being used.
+
+SSD-Cache is the power of writing and reading information from SSD before the slow-process of writing to HDD is done. Facebook introduced [Flashcache][flashcache] 4 years ago by Mohan Srinivasan and Paul Saab. With the introduction of SSD's to high-end data centers and the initial high cost, utilizing the storage capability of HDD with the speed of SSD made sense. As of 2015, even Facebook still uses SSD-Cached storage for most of their database servers.
+
+Why do you need it? Simple. Be able to use the high read/write cycles of SSD's with the storage capability of HDD's. 
+
+Since then, [Flashcache][flashcache] has been forked and developed into [EnhanceIO][enhanceio], which is still in (semi) active development. Despite the issues with writeback mode (which we won't use), it's still as stable as can be, still being used at multiple companies.
+
+Installing [EnhanceIO][enhanceio] is simple.
+
+# Installation
+
+In our setup, we assume that we have three (1TB) HDD's and one (256GB) SSD drive located in our (Debian) server rack. We have already setup RAID-5 over the three HDD's and now we want to use SSD-Cache to speed up the read/write process.
+
+```bash
+# Get the initial files
+apt-get install build-essential dkms
+git clone https://github.com/stec-inc/EnhanceIO.git
+
+# Compile and install
+cd EnhanceIO/Driver/enhanceio/
+make && make install
+
+# Copy over manuals
+cd ~/EnhanceIO/CLI
+cp eio_cli /sbin/
+cp eio_cli.8 /usr/share/man/man8
+
+# Initialize the modules 
+modprobe enhanceio_lru
+modprobe enhanceio_fifo
+modprobe enhanceio
+
+# To initial the modules on startup, simply add to /etc/modules before loop
+enhanceio_lru
+enhanceio_fifo
+enhanceio
+
+# The best part. Create the drive. Assuming /dev/md0 is our raid partition and /dev/sdd is our SSD drive
+eio_cli create -d /dev/md0 -s /dev/sdd -p fifo -m wt -c ssdcache
+```
+
+# Details
+
+Let's get into detail with our eio_cli command.
+
+```bash
+eio_cli create -d /dev/md0 -s /dev/sdd -p fifo -m wt -c ssdcache
+
+-d /dev/md0 # Specifies the drive(s) we want to cache
+-s /dev/sdd # Init's the SSD drive were using to cache.
+-p fifo # Our cache replacement policy. Can be changed between random, fifo and lru.
+-m wt # Our caching mode. Can be changed between wt (write-through), wb (write-back) and read
+```
+
+More details on the mode can be found [here][enhanceio]. 
+
+[flashcache]: https://github.com/facebook/flashcache/
+[enhanceio]: https://github.com/stec-inc/EnhanceIO

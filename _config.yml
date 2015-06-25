@@ -1,0 +1,6 @@
+pygments: true
+permalink: :title
+markdown: redcarpet
+exclude: ['.git']
+name: "charlie drage"
+description: "charlie drage - traveler, linux administrator, software developer"
