@@ -1,0 +1,9 @@
+---
+layout: post
+title: "tesla - the tesla model s runs ubuntu including a; ssh, telnet and web server"
+date: 2015-05-15 01:02:03
+---
+
+#![Mutt](/img/mutt.png)
+
+Disclaimer: This is a consolidated post of information found on the TeslaMotorsClub forum. Specifically [this](http://www.teslamotorsclub.com/showthread.php/28185-Successful-connection-on-the-Model-S-internal-Ethernet-network) forum post.

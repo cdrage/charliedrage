@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "linux - why i use mutt and why you should too"
+title: "[linux] why i use mutt and why you should too"
 date: 2014-09-10 01:02:03
 ---
 

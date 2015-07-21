@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "debian - recompiling your kernel with ufs readwrite support"
+title: "[linux] recompiling your kernel with ufs readwrite support"
 date: 2015-07-09 01:02:03
 ---
 
@@ -17,4 +17,6 @@ CONCURRENCY_LEVEL=4 make-kpkg --initrd --append-to-version=awesome-custom-ufs-ke
 dpkg -i /usr/src/linux-image-x.y.z.deb
 ```
 
-Reboot and you're done!
+Reboot, select from GRUB and you're done!
+
+07/19/15 Update: UFS write support is still EXPERIMENTAL and unfortunatley I've already encountered numerous bugs (within virt-sysprep + virt-customize)
