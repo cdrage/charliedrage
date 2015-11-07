@@ -61,5 +61,8 @@ eio_cli create -d /dev/md0 -s /dev/sdd -p fifo -m wt -c ssdcache
 
 More details on the mode can be found [here][enhanceio]. 
 
+And there you have it! SSD-cache storage ahoy.
+
 [flashcache]: https://github.com/facebook/flashcache/
 [enhanceio]: https://github.com/stec-inc/EnhanceIO
+

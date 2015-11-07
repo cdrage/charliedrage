@@ -4,6 +4,8 @@ title: "[linux] scalable low-consumption high-performance network ids, ips and s
 date: 2014-05-15 15:49
 ---
 
+__2015-10-25 UPDATE:__ Snorby is no longer being updated. Also, look at [Bro](http://github.com/bro/bro) as an alternative for Suricata :). Will update with a new article in the future of how this should be done in __only__ Docker containers :)
+
 One of the difficulties in security monitoring is the implementation of a low-resource monitoring software across a scalable network. This article will document the installation of Suricata and Barnyard on remote servers as well as Snorty on a central server / database. Without further ado, here is the overview:
 
 [Suricata][suricata]: A smart low-CPU intensive alternative to the IDS we all know and love, Snort.  This will be collecting packtes via AF Packet located on the 'sensor' (in our case, the nodes)

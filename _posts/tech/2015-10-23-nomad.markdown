@@ -1,0 +1,151 @@
+---
+layout: post
+title: "[docker] running nomad in a docker container" 
+date: 2015-10-23 01:02:03
+---
+
+Nomad from [Hashicorp](http://github.com/hashicorp/nomad)! Another container orchestrator. Similar to Kubernetes, Mesos, and Docker Swarm.
+
+IMO, the best way to learn about containers is by _example_. Than what better way than to run Nomad in a container.
+
+If you haven't heard of Kubernetes (k8s for short) or any of those hip and happening container tools I would suggest looking at this great k8s [article](https://labs.ctl.io/what-is-kubernetes-and-how-to-use-it/).
+
+Now onto the fun part!
+
+### Build Nomad 
+
+First, let's build Nomad. You'll need __Go__ for this.
+
+```bash
+go get github.com/hashicorp/nomad
+cd $GOPATH/src/github.com/hashicorp/nomad
+make bin
+```
+
+After that's completed you'll find the Nomad binary blob in the __/bin__ folder.
+
+### Build the Docker container
+
+Here's the entire Dockerfile for Nomad (small 'init?)
+
+Before that, copy your built binary blob to the same folder where your Dockerfile will be.
+
+
+```Dockerfile
+FROM debian:8
+MAINTAINER Charlie Drage <charlie@charliedrage.com>
+
+# Needed for ca-certificates :)
+# See error: "x509: failed to load system roots and no roots provided"
+RUN apt-get update && \
+    apt-get install -y ca-certificates
+
+EXPOSE :4646
+EXPOSE :4647
+EXPOSE :4648
+
+COPY nomad /nomad
+
+ENTRYPOINT ["/nomad"]
+```
+
+```bash
+▶ docker build -t $USER/nomad .
+Sending build context to Docker daemon 22.06 MB
+Sending build context to Docker daemon 
+Step 0 : FROM debian:8
+ ---> bf84c1d84a8f
+Step 1 : MAINTAINER Charlie Drage <charlie@charliedrage.com>
+ ---> Using cache
+ ---> bc3244625ab2
+Step 2 : RUN apt-get update &&     apt-get install -y ca-certificates
+ ---> Using cache
+ ---> 217fda8a17b4
+Step 3 : EXPOSE :4646
+ ---> Using cache
+ ---> e1b642932e0f
+Step 4 : EXPOSE :4647
+ ---> Using cache
+ ---> 19b8ee64657c
+Step 5 : EXPOSE :4648
+ ---> Using cache
+ ---> 5c5450ca4567
+Step 6 : COPY nomad /nomad
+ ---> Using cache
+ ---> 78f16ddd6880
+Step 7 : ENTRYPOINT /nomad
+ ---> Using cache
+ ---> eea5b9b75cc8
+Successfully built eea5b9b75cc8
+```
+
+### Now run it!
+
+```bash
+docker run \
+  --net=host \
+  -v /run/docker.sock:/run/docker.sock \
+  --name nomad \
+  -p 4646:4646 \
+  -p 4647:4647 \
+  -p 4648:4648 \
+  $USER/nomad agent -dev -network-interface YOURINTERFACE(eth0 probably)
+...
+==> Starting Nomad agent...
+2015/10/24 18:58:22 [ERR] fingerprint.env_aws: Error querying AWS Metadata URL, skipping
+==> Nomad agent configuration:
+
+                 Atlas: <disabled>
+                Client: true
+             Log Level: DEBUG
+                Region: global (DC: dc1)
+                Server: true
+
+==> Nomad agent started! Log data will stream in below:
+
+    2015/10/24 18:58:20 [INFO] serf: EventMemberJoin: wikus.global 127.0.0.1
+    2015/10/24 18:58:20 [INFO] nomad: starting 4 scheduling worker(s) for [service batch _core]
+    2015/10/24 18:58:20 [INFO] client: using alloc directory /tmp/NomadClient032777845
+    2015/10/24 18:58:20 [INFO] raft: Node at 127.0.0.1:4647 [Follower] entering Follower state
+    2015/10/24 18:58:20 [INFO] nomad: adding server wikus.global (Addr: 127.0.0.1:4647) (DC: dc1)
+    2015/10/24 18:58:20 [WARN] fingerprint.network: Unable to read link speed from /sys/class/net/wlan0/speed
+    2015/10/24 18:58:20 [DEBUG] fingerprint.network: Unable to read link speed; setting to default 100
+    2015/10/24 18:58:22 [WARN] raft: Heartbeat timeout reached, starting election
+    2015/10/24 18:58:22 [INFO] raft: Node at 127.0.0.1:4647 [Candidate] entering Candidate state
+    2015/10/24 18:58:22 [DEBUG] raft: Votes needed: 1
+    2015/10/24 18:58:22 [DEBUG] raft: Vote granted. Tally: 1
+    2015/10/24 18:58:22 [INFO] raft: Election won. Tally: 1
+    2015/10/24 18:58:22 [INFO] raft: Node at 127.0.0.1:4647 [Leader] entering Leader state
+    2015/10/24 18:58:22 [INFO] raft: Disabling EnableSingleNode (bootstrap)
+    2015/10/24 18:58:22 [DEBUG] raft: Node 127.0.0.1:4647 updated peer set (2): [127.0.0.1:4647]
+    2015/10/24 18:58:22 [INFO] nomad: cluster leadership acquired
+    2015/10/24 18:58:23 [ERR] fingerprint.env_gce: Error querying GCE Metadata URL, skipping
+    2015/10/24 18:58:23 [DEBUG] client: applied fingerprints [arch cpu host memory storage network]
+    2015/10/24 18:58:23 [DEBUG] client: available drivers [docker exec]
+    2015/10/24 18:58:23 [DEBUG] client: node registration complete
+    2015/10/24 18:58:23 [DEBUG] client: updated allocations at index 1 (0 allocs)
+    2015/10/24 18:58:23 [DEBUG] client: allocs: (added 0) (removed 0) (updated 0) (ignore 0)
+    2015/10/24 18:58:23 [DEBUG] client: state updated to ready
+
+```
+You'll see that your Nomad container started successfully! If you want to run it as a daemon, add __-d__ to the Docker run command.
+
+### Now run your first Nomad container!
+
+```bash
+▶ docker exec -it nomad bash
+root@wikus:/# ./nomad init
+Example job file written to example.nomad
+root@wikus:/# ./nomad run example.nomad 
+==> Monitoring evaluation "4602470b-a7e0-8a33-0e77-10654b103e58"
+    Evaluation triggered by job "example"
+    Allocation "327bedb4-32c9-b671-2b1d-66332debe6d2" created: node "ec84f514-9ce6-046f-bc1b-6b04d9a8c83b", group "cache"
+    Evaluation status changed: "pending" -> "complete"
+==> Evaluation "4602470b-a7e0-8a33-0e77-10654b103e58" finished with status "complete"
+root@wikus:/# 
+```
+
+There you have it! Go check out __docker ps -a__ and you'll see an example Redis container running.
+
+Now start hacking and build!
+

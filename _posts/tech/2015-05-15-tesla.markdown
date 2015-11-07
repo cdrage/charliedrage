@@ -1,0 +1,24 @@
+---
+layout: post
+title: "[tesla] the model s runs ubuntu including a; ssh, telnet, and web server"
+date: 2015-10-25 01:02:03
+---
+_This will be constantly updated as we know more info ;)_
+
+Disclaimer: This is a consolidated post of information found on the TeslaMotorsClub forum. Specifically [this](http://www.teslamotorsclub.com/showthread.php/28185-Successful-connection-on-the-Model-S-internal-Ethernet-network) forum post.
+
+__What we current know about the Tesla Model S:__
+
+* OS: Modified version of Ubuntu on ext3. QT graphical layer
+* Network: 192.168.90.1/24
+* Center console - 192.168.90.100
+  * Ports 22,53,80,111,2049,6000
+  * 80 - Graphical media of music player
+* Dashboard / Navigation - 192.168.90.101
+  * Ports 22,111,6000
+* Unknown peripheral
+  * Ports 23,1050
+
+__Past vulnerabilities:__
+
+  * WebKit hack [[Kevin Mahaffey (Lookout) && Marc Rogers (CloudFare)]](http://www.wired.com/2015/08/researchers-hacked-model-s-teslas-already/)
