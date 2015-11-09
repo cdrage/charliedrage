@@ -1,4 +1,4 @@
-highlighter: rouge
+highlighter: pygments
 permalink: /:title
 markdown: redcarpet
 comments: true

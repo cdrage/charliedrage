@@ -8,11 +8,7 @@ date: 2015-07-19 01:02:03
 mkdir /data
 docker run --name transmission -p 9091:9091 -v /data:/var/lib/transmission-daemon/downloads -d transmission
 docker run -d -p 5050:5050 -v /data:/data --name couchpotato couchpotato
-docker run -d -p 445:445 -p 137:137 -p 138:138 -p 139:139 -v /data:/data --env workgroup=workgroup --name samba samba
+mkdir ~/plex-config
+chown 797:797 -R ~/plex-config
+docker run -d -v ~/plex-config:/config -v /data:/media -p 32400:32400 --net=host --name plex plex
 ```
-
-server:9091 # couchpotato
-server:5050 # transmission
-\\server\data # samba/windows share dir
-
-
