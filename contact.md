@@ -11,8 +11,8 @@ permalink: /contact/
 * Linux administration
 
 ## contact
-* [github](https://github.com/charliedrage)
-* [twitter](https://twitter.com/charlesdrage)
+* [github](https://github.com/cdrage)
+* [twitter](https://twitter.com/cdrage)
 * email: charlie (at) charliedrage (dot) com
 
 ## resume / recruiters / lol jobs
