@@ -149,3 +149,4 @@ There you have it! Go check out __docker ps -a__ and you'll see an example Redis
 
 Now start hacking and build!
 
+__UPDATE:__ Keep in mind that you're passing -v /run/docker.sock:/run/docker.sock to Nomad. You will _only_ be able to use the Docker provider. If you'd like to use rkt or qemu feel free to run Nomad natively (perhaps in a systemd service).
