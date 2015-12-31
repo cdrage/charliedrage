@@ -1,3 +1,3 @@
 ## readme
 
-charliedrage.com site ran on Jekyll
+charliedrage.com site

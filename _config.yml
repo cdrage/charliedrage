@@ -1,5 +1,5 @@
-highlighter: pygments
-permalink: /:title
+highlighter: rouge
+permalink: /:title/
 markdown: redcarpet
 comments: true
 exclude: ['.git']
