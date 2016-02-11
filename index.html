@@ -3,6 +3,10 @@ layout: default
 ---
 <div class="posts">
   {% for post in site.posts %}
-  <a href="{{ post.url }}" class="post-link">{{ post.title }} - {{ post.date | date: "%Y-%m-%d" }}</a>
+  <a href="{{ post.url }}" class="post-link">
+    <span style="font-size:10px; padding-bottom:10px;">{{ post.date | date: "%Y-%m-%d" }}</span>
+    <br>
+    <b>{{ post.topic }} -</b> {{ post.title }} 
+  </a>
   {% endfor %}
 </div>

@@ -1,5 +1,5 @@
 html {
-  font-size: 16px;
+  font-size: 14px;
   font-family: monospace;
 }
 
@@ -51,10 +51,11 @@ a {
 .post-link {
   text-transform: lowercase;
   display: block;
-  max-width: 400px;
+  max-width: 500px;
   padding: 20px 30px;
   margin-bottom: 10px;
   border: 2px dotted red;
+  text-decoration:none;
 }
 
 .post-link:hover {

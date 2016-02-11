@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[linux] the power of hdd's and ssd-cache"
+topic: linux
+title: the power of hdd's and ssd-cache
 date: 2015-02-22 01:02:03
 ---
 

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[tesla] the model s runs ubuntu including a; ssh, telnet, and web server"
+topic: tesla
+title: the model s runs ubuntu including a; ssh, telnet, and web server
 date: 2015-10-25 01:02:03
 ---
 _This will be constantly updated as we know more info ;)_

@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[linux] enabling private networking with virtio with libvirt"
+topic: linux
+title: enabling private networking with virtio with libvirt
 date: 2015-07-20 01:02:03
 ---
 

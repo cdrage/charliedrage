@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[docker] an instant(ish) openvpn server" 
+topic: docker
+title: an instant(ish) openvpn server
 date: 2015-11-19 01:02:03
 ---
 

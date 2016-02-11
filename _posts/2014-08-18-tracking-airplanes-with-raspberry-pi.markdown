@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[raspberry pi] tracking airplanes"
+topic: raspberry pi
+title: tracking airplanes
 date: 2014-08-18
 ---
 

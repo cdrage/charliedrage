@@ -1,6 +1,7 @@
 ---
 layout: post
-title: "[docker] easy multi-host networking" 
+topic: docker networking
+title: easy multi-host networking
 date: 2015-11-06 01:02:03
 ---
 
