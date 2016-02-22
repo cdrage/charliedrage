@@ -16,8 +16,13 @@ dev_k8s(){
   local choice=$1
   K8S_VERSION=1.2.0-alpha.7
 
+  if [ ! -f /usr/bin/kubectl ] && [ ! -f /usr/local/bin/kubectl ]; then
+    echo "No kubectl bin exists? Please install."
+    return 1
+  fi
+
   if [[ $choice == "up" ]]; then
-    echo "Launching local k8s cluster"
+    echo "\n-----Launching local k8s cluster-----\n"
     docker run \
     --volume=/:/rootfs:ro \
     --volume=/sys:/sys:ro \
@@ -38,20 +43,40 @@ dev_k8s(){
         --cluster-dns=10.0.0.10 \
         --cluster-domain=cluster.local \
         --allow-privileged=true --v=2
-    echo "Waiting for k8s containers to initialize" 
+
+    echo "\n-----Waiting for Kubernetes to initialize-----\n"
     until nc -z 127.0.0.1 8080;
     do
       echo ...
       sleep 1
     done
-    echo "Launched!"
+    echo "\n-----Launched!-----\n"
+
+    echo "\n-----Setting local dev variables-----\n"
+    kubectl config set-cluster dev --server=http://localhost:8080
+    kubectl config set-context dev --cluster=dev
+    kubectl config use-context dev
+
+    echo "\n-----Ready for development!-----\n"
+
   elif [[ $choice == "down" ]]; then
-    echo "Removing local k8s cluster"
-    docker ps -a | grep 'k8s_' | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
-    docker ps -a | grep 'gcr.io/google_containers/hyperkube-amd64' | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
+    echo "\n-----Removing all pods-----\n"
+    kubectl delete --all namespaces
+
+    # Run twice due to issue with aufs debian driver
+    echo "\n-----Removing all k8s containers-----\n"
+    for run in {0..2}
+    do
+      docker ps -a | grep 'k8s_' | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
+      docker ps -a | grep 'gcr.io/google_containers/hyperkube-amd64' | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
+    done
+
+    rm ~/.kube/config
+
   elif [[ $choice == "restart" ]]; then
     dev_k8s down
     dev_k8s up
+
   else
     echo "Kubernetes dev environment"
     echo "Usage: dev_k8s {up|down|restart}"
