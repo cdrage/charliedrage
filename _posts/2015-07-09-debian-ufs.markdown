@@ -1,6 +1,6 @@
 ---
 layout: post
-topic: linux + kernel
+category: linux + kernel
 title: recompiling your kernel with ufs readwrite support
 date: 2015-07-09 01:02:03
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-topic:  docker + monitoring
+category:  docker + monitoring
 title:  fast scaleable monitoring solution (sensu) with notifications (slack, email) and metrics (graphite)
 date: 2015-03-24 01:02:03
 ---

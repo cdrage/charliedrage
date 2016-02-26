@@ -1,6 +1,6 @@
 ---
 layout: post
-topic: personal
+category: personal
 title: coffee in waterloo
 date: 2016-01-11 01:02:03
 ---

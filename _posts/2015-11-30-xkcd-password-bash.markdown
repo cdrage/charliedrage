@@ -1,6 +1,6 @@
 ---
 layout: post
-topic: bash
+category: bash
 title: xkcd password generator
 date: 2015-11-30 01:02:03
 ---

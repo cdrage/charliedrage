@@ -1,6 +1,6 @@
 ---
 layout: post
-topic: containers
+category: containers
 title: Simple Kubernetes development environment in Docker
 date: 2016-02-22 13:55
 ---

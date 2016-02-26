@@ -1,6 +1,6 @@
 ---
 layout: post
-topic: personal
+category: personal
 title: "a bit of who i am and my beliefs"
 date: 2014-05-15 01:02:03
 ---

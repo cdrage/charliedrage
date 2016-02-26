@@ -1,6 +1,6 @@
 ---
 layout: post
-topic: containers
+category: containers
 title: Simple OpenShift Origin development environment in Docker
 date: 2016-02-22 14:01
 ---

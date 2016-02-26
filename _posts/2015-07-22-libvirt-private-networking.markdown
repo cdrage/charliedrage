@@ -1,6 +1,6 @@
 ---
 layout: post
-topic: linux
+category: linux
 title: enabling private networking with virtio with libvirt
 date: 2015-07-20 01:02:03
 ---

@@ -1,6 +1,6 @@
 ---
 layout: post
-topic: docker networking
+category: docker networking
 title: easy multi-host networking
 date: 2015-11-06 01:02:03
 ---
