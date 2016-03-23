@@ -9,13 +9,15 @@ Want a Kubernetes / k8s local development cluster without having to follow an in
 
 Simply add this to your __.bashrc__ (or __source foobar.sh__ it, whatever you'd like) and run __dev_k8s up__. Need to take it down? __dev_k8s down__.
 
+Oh, and you need __Docker__ installed, but I assume you already have that :)
+
 ```bash
 dev_k8s(){
   local choice=$1
-  K8S_VERSION=1.2.0-beta.1
+  K8S_VERSION=1.2.0
 
   if [ ! -f /usr/bin/kubectl ] && [ ! -f /usr/local/bin/kubectl ]; then
-    echo "No kubectl bin exists? Please install."
+    echo "No kubectl bin exists! Install the bin to continue :)."
     return 1
   fi
 
@@ -42,8 +44,8 @@ dev_k8s(){
       --cluster-domain=cluster.local \
       --allow-privileged=true --v=2
 
-    echo "\n-----Waiting for Kubernetes to initialize-----\n"
-    until nc -z 127.0.0.1 8080;
+    echo "\n-----Waiting for k8s to initialize-----\n"
+    until curl 127.0.0.1:8080 &>/dev/null;
     do
       echo ...
       sleep 1
