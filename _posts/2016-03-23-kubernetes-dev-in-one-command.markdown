@@ -32,6 +32,7 @@ dev_k8s(){
       --net=host \
       --pid=host \
       --privileged=true \
+      --name=kubelet \
       -d \
       gcr.io/google_containers/hyperkube-amd64:v${K8S_VERSION} \
       /hyperkube kubelet \
@@ -58,6 +59,9 @@ dev_k8s(){
     kubectl config use-context dev
     kubectl config set-credentials default --token=foobar
 
+    echo "\n-----Create the kube-system namespace-----\n"
+    kubectl create namespace kube-system
+
     echo "\n-----Ready for development!-----\n"
 
   elif [[ $choice == "down" ]]; then
@@ -65,14 +69,14 @@ dev_k8s(){
     kubectl delete --all namespaces
 
     echo "\n-----Remove EVERYTHINGGGG-----\n"
-    kubectl get pvc,pv,svc,rc,po | grep -v 'k8s-\|NAME\|CONTROLLER\|kubernetes' | awk '{print $1}' | xargs --no-run-if-empty kubectl delete pvc,pv,svc,rc,po 2>/dev/null
+    kubectl get pvc,pv,svc,rc,po --all-namespaces | grep -v 'k8s-\|NAME\|CONTROLLER\|kubernetes' | awk '{print $2}' | xargs --no-run-if-empty kubectl delete pvc,pv,svc,rc,po 2>/dev/null
 
     echo "\n-----Waiting for everything to terminate-----\n"
-    kubectl get po,svc,rc
+    kubectl get po,svc,rc --all-namespaces
     sleep 3 # give kubectl chance to catch up to api call
     while [ 1 ]
     do
-      k8s=`kubectl get po,svc,rc | grep Terminating`
+      k8s=`kubectl get po,svc,rc --all-namespaces | grep Terminating`
       if [[ $k8s == "" ]]
       then
         break
@@ -85,6 +89,9 @@ dev_k8s(){
     # Run twice due to issue with aufs debian driver
     echo "\n-----Removing all k8s containers-----\n"
 
+    # Remove the initial kubelet
+    docker rm -f kubelet
+
     for run in {0..2}
     do
       docker ps -a | grep 'k8s_' | awk '{print $1}' | xargs --no-run-if-empty docker rm -f
@@ -93,13 +100,36 @@ dev_k8s(){
 
     rm ~/.kube/config
 
+  elif [[ $choice == "gui" ]]; then
+    kubectl create -f "https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.2/cluster/addons/dashboard/dashboard-controller.yaml" --namespace=kube-system
+    kubectl create -f "https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.2/cluster/addons/dashboard/dashboard-service.yaml" --namespace=kube-system
+
+  elif [[ $choice == "dns" ]]; then
+    # Set the amount of dns replicas and env variables
+    export DNS_REPLICAS=1
+    export DNS_DOMAIN=cluster.local
+    export DNS_SERVER_IP=10.0.0.10
+
+    # Grab the official dns yaml file
+    wget http://kubernetes.io/docs/getting-started-guides/docker-multinode/skydns.yaml.in -O skydns.yaml.in
+    sed -e "s/{{ pillar\['dns_replicas'\] }}/${DNS_REPLICAS}/g;s/{{ pillar\['dns_domain'\] }}/${DNS_DOMAIN}/g;s/{{ pillar\['dns_server'\] }}/${DNS_SERVER_IP}/g" skydns.yaml.in > ./skydns.yaml
+
+    # Because of https://github.com/kubernetes/kubernetes/issues/23474
+    #dns="\ \ \ \ \ \ \ \ - -nameservers=8.8.8.8:53"
+    #sed -i "73i$dns" skydns.yaml
+
+    # Deploy!
+    kubectl get ns
+    kubectl create -f ./skydns.yaml
+    rm skydns.yaml*
+
   elif [[ $choice == "restart" ]]; then
     dev_k8s down
     dev_k8s up
 
   else
     echo "Kubernetes dev environment"
-    echo "Usage: dev_k8s {up|down|restart}"
+    echo "Usage: dev_k8s {up|down|restart|gui|dns}"
   fi
 }
 ```
