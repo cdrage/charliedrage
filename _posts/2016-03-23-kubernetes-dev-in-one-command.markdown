@@ -1,7 +1,7 @@
 ---
 layout: post
 category: docker
-title: Kubernetes development cluster up in one command
+title: Kubernetes local development cluster up in one command
 date: 2016-03-23 12:45
 ---
 
@@ -9,7 +9,26 @@ Want a Kubernetes / k8s local development cluster without having to follow an in
 
 Simply add this to your __.bashrc__ (or __source foobar.sh__ it, whatever you'd like) and run __dev_k8s up__. Need to take it down? __dev_k8s down__.
 
-Oh, and you need __Docker__ installed, but I assume you already have that :)
+Oh, the only things you need is  __docker__ and the __kubectl__ binary installed, but I assume you already have that :)
+
+__Usage:__
+```
+▶ dev_k8s
+Kubernetes dev environment
+
+Usage: 
+ dev_k8s {up|down|restart|clean|gui|dns|pv}
+
+Methods: 
+ up
+ down
+ restart
+ clean - returns k8s env to a clean slate
+ gui - ui for k8s at localhost:9090
+ dns - deployment of skydns / name resolution
+ pv - creates a 20Gb persistent volume named foobar at /tmp/foobar
+
+```
 
 ```bash
 dev_k8s(){
@@ -100,6 +119,25 @@ dev_k8s(){
 
     rm ~/.kube/config
 
+  elif [[ $choice == "clean" ]]; then
+    echo "\n-----Cleaning / removing all pods and containers from default namespace-----\n"
+    kubectl get pvc,pv,svc,rc,po | grep -v 'k8s-\|NAME\|CONTROLLER\|kubernetes' | awk '{print $1}' | xargs --no-run-if-empty kubectl delete pvc,pv,svc,rc,po 2>/dev/null
+
+    echo "\n-----Waiting for everything to terminate-----\n"
+    kubectl get po,svc,rc
+    sleep 3 # give kubectl chance to catch up to api call
+    while [ 1 ]
+    do
+      k8s=`kubectl get po,svc,rc | grep Terminating`
+      if [[ $k8s == "" ]]
+      then
+        break
+      else
+        echo "..."
+      fi
+      sleep 1
+    done
+
   elif [[ $choice == "gui" ]]; then
     kubectl create -f "https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.2/cluster/addons/dashboard/dashboard-controller.yaml" --namespace=kube-system
     kubectl create -f "https://raw.githubusercontent.com/kubernetes/kubernetes/release-1.2/cluster/addons/dashboard/dashboard-service.yaml" --namespace=kube-system
@@ -122,14 +160,40 @@ dev_k8s(){
     kubectl get ns
     kubectl create -f ./skydns.yaml
     rm skydns.yaml*
-
+  
   elif [[ $choice == "restart" ]]; then
     dev_k8s down
     dev_k8s up
 
+  elif [[ $choice == "pv" ]]; then
+    mkdir -p /tmp/foobar
+    cat <<EOF | kubectl create -f -
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: foobar
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  hostPath:
+    path: /tmp/foobar
+EOF
+
   else
     echo "Kubernetes dev environment"
-    echo "Usage: dev_k8s {up|down|restart|gui|dns}"
+    echo "\nUsage: "
+    echo " dev_k8s {up|down|restart|clean|gui|dns|pv}"
+    echo "\nMethods: "
+    echo " up"
+    echo " down"
+    echo " restart"
+    echo " clean - returns k8s env to a clean slate"
+    echo " gui - ui for k8s at localhost:9090"
+    echo " dns - deployment of skydns / name resolution"
+    echo " pv - creates a 20Gb persistent volume named foobar at /tmp/foobar"
   fi
 }
 ```
