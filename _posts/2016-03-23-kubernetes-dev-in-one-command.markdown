@@ -12,6 +12,7 @@ Simply add this to your __.bashrc__ (or __source foobar.sh__ it, whatever you'd 
 Oh, the only things you need is  __docker__ and the __kubectl__ binary installed, but I assume you already have that :)
 
 __Usage:__
+
 ```
 ▶ dev_k8s
 Kubernetes dev environment
@@ -27,10 +28,11 @@ Methods:
  gui - ui for k8s at localhost:9090
  dns - deployment of skydns / name resolution
  pv - creates a 20Gb persistent volume named foobar at /tmp/foobar
-
 ```
 
-```bash
+__Script:__
+
+```sh
 dev_k8s(){
   local choice=$1
   K8S_VERSION=1.2.0
