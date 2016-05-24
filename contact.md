@@ -15,7 +15,3 @@ permalink: /contact/
 * [twitter](https://twitter.com/cdrage)
 * email: charlie (at) charliedrage (dot) com
 * irc: cdrage @ freenode
-
-## resume / lol recruiters
-* [resume.txt](/resume.txt)
-* [resume.pdf](/resume.pdf)
