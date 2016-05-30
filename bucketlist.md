@@ -7,7 +7,7 @@ permalink: /bucketlist/
 ## bucket list
 
 * qet a tattoo
-* skydiving
+* ~~skydiving~~ **completed 05-28-2016**
 * japan
 * korea
 * china

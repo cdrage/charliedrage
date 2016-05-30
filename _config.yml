@@ -1,6 +1,8 @@
 highlighter: rouge
 permalink: /:title/
 markdown: redcarpet
+redcarpet:
+  extensions: ["strikethrough"]
 comments: true
 exclude: ['.git']
 name: "charlie drage"
