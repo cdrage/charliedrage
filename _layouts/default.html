@@ -1,47 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>{{ site.description }}</title>
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ site.description }}</title>
 
-<meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<link href="/css/styles.css" rel="stylesheet" type="text/css">
+    <link href="/css/styles.css" rel="stylesheet" type="text/css">
 
-</head>
-<body>
-<div class="sidebar">
-  <h2>charlie drage</h2>
-    soft eng / dev
-      <br>
-      waterloo, on, ca
-  <a href="/" class="logo">
-    <img src="/img/me.jpg" style="
-    text-transform: lowercase;
-    display: block;
-    max-width: 200px;
-    padding-bottom:1em;">
-  </a>
-    <div class="nav-inner">
-      waterloo, on, ca
-      <br>
-      <a href="/">blog</a><br>
-      <a href="/contact">contact</a><br>
+  </head>
+  <body>
+    <div class="sidebar">
+      <h2>charlie drage</h2>
+      <p>software engineer<br>waterloo, on, ca</p>
+      <a href="/" class="logo"><img src="/img/me.jpg" class="meimg"/></a>
+      <div class="nav-inner">
+        <a href="/">home</a><br>
+        <a href="/contact">contact</a><br>
+      </div>
     </div>
-</div>
-<div class="wrapper">
-  <h2></h2>
-  {{ content }}
-</div>
-<script>
+    <div class="wrapper">
+      <h2></h2>
+      {{ content }}
+    </div>
+    <script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
- (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
- m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
- })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 ga('create', 'UA-50776427-1', 'auto');
 ga('send', 'pageview');
 
-</script>
-</body>
+    </script>
+  </body>
 </html>

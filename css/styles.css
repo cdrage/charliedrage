@@ -1,3 +1,9 @@
+.meimg {
+  text-transform: lowercase;
+  display: block;
+  max-width: 200px;
+  padding-bottom:1em;
+}
 html {
   font-size: 14px;
   font-family: monospace;
@@ -104,12 +110,12 @@ a {
 
 .post-body img {
   text-align:center;
-  width: 95%;
+  width: 100%;
   display: block;
   margin-left:auto;
   margin-right:auto;
-  margin-top:10px;
-  margin-bottom: 10px;
+  margin-top:30px;
+  margin-bottom: 30px;
 }
 
 .post-body a:nth-of-type(4n) {

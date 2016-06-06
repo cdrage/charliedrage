@@ -13,22 +13,12 @@
   <body>
     <div class="sidebar">
       <h2>charlie drage</h2>
-      soft eng / dev
-      <br>
-      waterloo, on, ca
-      <a href="/" class="logo">
-        <img src="/img/me.jpg" style="
-        text-transform: lowercase;
-        display: block;
-        max-width: 200px;
-        padding-bottom:1em;">
-      </a>
-    <div class="nav-inner">
-      <br>
-      <a href="/">blog</a><br>
-      <a href="/contact">contact</a><br>
-    </div>
-
+      <p>software engineer<br>waterloo, on, ca</p>
+      <a href="/" class="logo"><img src="/img/me.jpg" class="meimg"/></a>
+      <div class="nav-inner">
+        <a href="/">home</a><br>
+        <a href="/contact">contact</a><br>
+      </div>
     </div>
     <div class="wrapper">
       <h2>{{ page.category }} - {{ page.title }}</h2>
@@ -41,28 +31,28 @@
         <h1> comments </h1>
         <div id="disqus_thread"></div>
         <script type="text/javascript">
-          /* * * CONFIGURATION VARIABLES * * */
-          var disqus_shortname = 'charliedrage';
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'charliedrage';
 
-          /* * * DON'T EDIT BELOW THIS LINE * * */
-          (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          })();
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+  var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+  dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
         </script>
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
-          <script type="text/javascript">
-          /* * * CONFIGURATION VARIABLES * * */
-          var disqus_shortname = 'charliedrage';
+        <script type="text/javascript">
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'charliedrage';
 
-          /* * * DON'T EDIT BELOW THIS LINE * * */
-          (function () {
-            var s = document.createElement('script'); s.async = true;
-            s.type = 'text/javascript';
-            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-          }());
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+  var s = document.createElement('script'); s.async = true;
+  s.type = 'text/javascript';
+  s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+  (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
         </script>
         {{ endif }}
 
