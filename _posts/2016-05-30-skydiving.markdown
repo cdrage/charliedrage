@@ -9,7 +9,7 @@ On a calm Saturday, I fell out of an airplane.
 
 ![](/img/skydiving2.jpg)
 
-We flew to 10,500 at the DZ (Drop Zone) and jumped out of the plane with the photographer leading.
+We flew to 10,500 feet and jumped out of the plane with the photographer leading.
 
 ![](/img/skydiving3.jpg)
 
@@ -21,4 +21,4 @@ Skydiving had been something on my bucket list for years.
 
 ![](/img/skydiving4.jpg)
 
-One most exhilarating experiences I've ever had, I would do it again in a heartbeat. Thanks to those at Skydive Swoop as well as my partner-in-crime <3.
+One most exhilarating experiences I've ever had, I would do it again in a heartbeat. Thanks to those at [Skydive Swoop](http://www.skydiveswoop.com/) as well as my partner-in-crime <3.
