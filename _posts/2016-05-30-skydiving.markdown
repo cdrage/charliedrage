@@ -19,6 +19,10 @@ Jumping out of a Cessna 206 and falling through the clouds at 142 feet per secon
 
 Skydiving had been something on my bucket list for years.
 
+![](/img/skydiving8.jpg)
+
+One most exhilarating experiences I've ever had, I would do it again in a heartbeat. 
+
 ![](/img/skydiving4.jpg)
 
-One most exhilarating experiences I've ever had, I would do it again in a heartbeat. Thanks to those at [Skydive Swoop](http://www.skydiveswoop.com/) as well as my partner-in-crime <3.
+Thanks to those at [Skydive Swoop](http://www.skydiveswoop.com/) as well as my partner-in-crime <3.
