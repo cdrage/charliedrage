@@ -1,8 +1,9 @@
 .meimg {
   text-transform: lowercase;
   display: block;
-  max-width: 200px;
+  max-width: 150px;
   padding-bottom:1em;
+  border-radius:50%;
 }
 html {
   font-size: 14px;
@@ -12,7 +13,7 @@ html {
 .sidebar {
   padding-top: 20px;
   position: fixed;
-  text-align:center;
+  text-align:left;
 }
 
 .logo {
