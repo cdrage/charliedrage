@@ -7,7 +7,7 @@ permalink: /bucketlist/
 ## bucket list
 
 * qet a tattoo
-* ~~skydiving~~ **completed 05-28-2016**
+* ~~skydiving~~ **[completed 05-28-2016](/skydiving)**
 * japan
 * korea
 * china
@@ -27,7 +27,7 @@ permalink: /bucketlist/
 * chiang mai
 * helicopter/ppl license
 * watch all of imdb top 250's movies
-* watch a space shuttle launch IRL
+* watch a rocket launch IRL
 * have your name mentioned in a major newspaper
 * bubble soccer
 * do professional go-karting

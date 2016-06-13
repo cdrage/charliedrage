@@ -1,8 +1,7 @@
 .meimg {
-  text-transform: lowercase;
   display: block;
   max-width: 150px;
-  padding-bottom:1em;
+  margin-bottom:1em;
   border-radius:50%;
 }
 html {
