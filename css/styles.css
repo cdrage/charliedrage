@@ -45,6 +45,10 @@ html {
   text-transform: lowercase;
 }
 
+h1 {
+  text-transform:lowercase;
+}
+
 body {
   margin: 0;
   padding: 0 30px 30px;
