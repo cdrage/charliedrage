@@ -11,18 +11,17 @@ permalink: /bucketlist/
 * japan
 * korea
 * china
-* every province
-* every state
-* read 100 books
-* run 10k
+* every canadian province
+* every US state
+* read 100 books (and keep track of the progress!)
+* 10k race
 * learn 日本語
 * build a larger drone
 * become a debian developer/maintainer
 * become a centos developer/maintainer
 * get my rhce
 * ride a motorcycle from coast to coast
-* eat chocolate covered cockroaches
-* travel to every country in the world
+* eat chocolate covered cockroache(s)
 * drink a beer at oktoberfest
 * chiang mai
 * helicopter/ppl license
@@ -31,4 +30,3 @@ permalink: /bucketlist/
 * have your name mentioned in a major newspaper
 * bubble soccer
 * do professional go-karting
-* buy a manual car
