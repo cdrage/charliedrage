@@ -6,7 +6,7 @@ permalink: /bucketlist/
 
 ## bucket list
 
-* qet a tattoo
+* tattoo
 * ~~skydiving~~ **[completed 05-28-2016](/skydiving)**
 * japan
 * korea
@@ -19,7 +19,7 @@ permalink: /bucketlist/
 * build a larger drone
 * become a debian developer/maintainer
 * become a centos developer/maintainer
-* get my rhce
+* rhce
 * ride a motorcycle from coast to coast
 * eat chocolate covered cockroache(s)
 * drink a beer at oktoberfest
