@@ -5,5 +5,5 @@ convert:
 
 deploy: convert
 	jekyll build
-	rsync -rvP _site/* core@$(SITE):~/html
-	ssh core@$(SITE) chmod -R 755 ~/html
+	rsync -rvP _site/* core@$(SITE):/home/core/html
+	ssh core@$(SITE) chmod -R 755 /home/core/html
