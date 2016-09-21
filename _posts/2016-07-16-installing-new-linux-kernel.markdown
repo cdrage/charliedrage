@@ -17,6 +17,16 @@ cd linux-$VERSION
 cp /boot/config-$(uname -r) .config # the default config used for debian
 make nconfig # just click save if you're not doing anything special
 make deb-pkg -j$(lscpu | awk '/^CPU\(s\):/{print $NF}') # the longest part of the process... this will compile your kernel (auto detects how many cpu's you have to use)
-dpkg -i linux-image-*.deb
+sudo dpkg -i ../linux-image-*.deb # install the new linux images
+sudo dpkg -i ../linux-headers-*.deb # install the new headers
+sudo update-grub # update grub with the new images
 sudo shutdown -r now # you'll see it in GRUB
 ```
+
+A few notes!
+
+When you run "make nconfig" make sure you select exactly what you'd like. Some features weren't copied over when copying over the previous configuration `cp /boot/config$(uname -r)`.
+
+For example, in order for me to get `Docker` to run, I had to enable both `overlayfs` as well as dig into the Netfilter module in order to enable `iptables` NAT'ing.
+
+Remember to do this, or else like me, you'll be making another coffee as Linux compiles yet-again.
