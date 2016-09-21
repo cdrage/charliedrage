@@ -1,7 +1,6 @@
 .DS_Store
 _site/
 deploy.sh
-img/
 resume.pdf
 resume.txt
 *.markdown.swp
@@ -18,3 +17,5 @@ Session.vim
 *~
 # auto-generated tag files
 tags
+
+img/
