@@ -9,13 +9,14 @@ Recently I had to update my Kernel in order to use [OverlayFS](https://github.co
 
 ```
 #!/bin/bash
-VERSION=4-6-4 # or w/e is newest
+sudo apt-get install ca-certificates curl git kernel-package make libncurses5-dev libssl-dev -y
+VERSION=4.7.4 # or w/e is newest
 wget https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-$VERSION.tar.xz
 tar xaf linux-$VERSION.tar.xz
 cd linux-$VERSION
 cp /boot/config-$(uname -r) .config # the default config used for debian
 make nconfig # just click save if you're not doing anything special
-make deb-pkg -j4 # this will take a while... change -j# to # of CPU cores for faster compiling
+make deb-pkg -j$(lscpu | awk '/^CPU\(s\):/{print $NF}') # the longest part of the process... this will compile your kernel (auto detects how many cpu's you have to use)
 dpkg -i linux-image-*.deb
 sudo shutdown -r now # you'll see it in GRUB
 ```
