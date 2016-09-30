@@ -1,6 +1,6 @@
 ---
 layout: post
-category: linux
+category: kubernetes
 title: "Kubeshift: A Python library for Kubernetes and OpenShift"
 date: 2016-09-30 10:46
 ---
