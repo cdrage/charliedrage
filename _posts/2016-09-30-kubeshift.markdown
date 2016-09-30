@@ -17,7 +17,7 @@ It's super easy to use [Kubeshift](https://github.com/cdrage/kubeshift).
 
 Installation is done either through Git clone or Pip.
 
-```
+```sh
 git clone https://github.com/cdrage/kubeshift && cd kubeshift && sudo make install
 # or
 sudo pip install kubeshift
